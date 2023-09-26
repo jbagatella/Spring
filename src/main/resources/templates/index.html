@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Hotel reservations</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div style="text-align:center;margin-bottom:20px;"><h3>Hotel reservations</h3></div>
+
+        <div style="width:50%;margin: 0 auto;">
+            <table class="table" border="2">
+                <thead>
+                    <th>Id of reservation</th>
+                    <th>Client name</th>
+                    <th>Room number</th>
+                    <th>Check-in date</th>
+                    <th>Check-out date</th>
+                </thead>
+                <tr th:each="reservation : ${reservations}">
+                    <td th:text="${reservation.id}"></td>
+                    <td th:text="${reservation.clientFullName}"></td>
+                    <td th:text="${reservation.roomNumber}"></td>
+                    <td th:text="${reservation.reservationDates.get(0)}"></td>
+                    <td th:text="${reservation.reservationDates.get(1)}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="offset-2 col-4">
+                <div style="margin-top:30px;">
+                    <h4>Make a reservation</h4>
+                    <form th:action="@{/makeReservation}" method="post" th:object="${formReservation}">
+                        <table border="1">
+                            <tr>
+                                <td>Client name</td>
+                                <td><input type="text" name="clientFullName" th:field="*{clientFullName}"></td>
+                            </tr>
+                            <tr>
+                                <td>Room number</td>
+                                <td><input type="number" name="roomNumber" th:field="*{roomNumber}"></td>
+                            </tr>
+                            <tr>
+                                <td>Check-in date</td>
+                                <td><input type="date" name="startDate" th:field="*{startDate}"></td>
+                            </tr>
+                            <tr>
+                                <td>Check-out date</td>
+                                <td><input type="date" name="endDate" th:field="*{endDate}"></td>
+                            </tr>
+                        </table>
+                        <input type="submit" name="mres" value="Make a reservation">
+                    </form>
+                </div>
+            </div>
+            <div class="offset-1 col-4">
+                <div style="margin-top:40px;">
+                    <h4>Update a reservation</h4>
+                    <form th:action="@{/updateReservation}" method="post" th:object="${formReservation}">
+                        <table border="1">
+                            <tr>
+                                <td>Id of reservation</td>
+                                <td><input type="number" name="id" th:field="*{id}"></td>
+                            </tr>
+                            <tr>
+                                <td>Client name</td>
+                                <td><input type="text" name="clientFullName" th:field="*{clientFullName}"></td>
+                            </tr>
+                            <tr>
+                                <td>Room number</td>
+                                <td><input type="number" name="roomNumber" th:field="*{roomNumber}"></td>
+                            </tr>
+                            <tr>
+                                <td>Check-in date</td>
+                                <td><input type="date" name="startDate" th:field="*{startDate}"></td>
+                            </tr>
+                            <tr>
+                                <td>Check-out date</td>
+                                <td><input type="date" name="endDate" th:field="*{endDate}"></td>
+                            </tr>
+                        </table>
+                        <input type="submit" name="ures" value="Update a reservation">
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </body>
+</html>
